@@ -46,8 +46,8 @@ contract TransactionContract {
     return _value;
   }
 
-  function setAcceptor(address acceptor) public {
-    _acceptor = acceptor;
+  function setAcceptor() public {
+    _acceptor = msg.sender;
   }
 
   /// 买家确认购买。

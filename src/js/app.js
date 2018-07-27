@@ -244,16 +244,25 @@ App = {
     event.preventDefault();
 
     var transactionInstance;
-    App.contracts.TransactionContract.deployed().then(function(instance){
+
+    web3.eth.getAccounts(function(error, accounts){
+      if (error) {
+        console.log(error);
+      }
+      App.contracts.TransactionContract.deployed().then(function(instance){
       transactionInstance = instance;
 
-      transactionInstance.setAcceptor.call('0x21B0536b98F42B8Af22048F687d51c3F3F47eb0c');
+      transactionInstance.setAcceptor({from: accounts[0]});
       return transactionInstance.getAcceptor.call();
     }).then(function(account){
       console.log(account);
     }).catch(function(err){
       console.log(err.message);
     });
+
+
+    });
+    
   },
   completeTransaction: function(event){
     event.preventDefault();
@@ -262,7 +271,7 @@ App = {
     App.contracts.TransactionContract.deployed().then(function(instance){
         transactionInstance = instance;
 
-        transactionInstance.confirmReceived.call();
+        transactionInstance.confirmReceived();
     }).catch(function(err){
         console.log(err.message);
     });
