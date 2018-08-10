@@ -1,1 +1,1 @@
-# Hareshare
+# Hay Token
