@@ -113,7 +113,7 @@ App = {
       console.log('index_section');
     });
     page('send',function(){
-
+    
     });
 
     page('transaction',function(){
@@ -215,7 +215,39 @@ App = {
   // },
   createTransaction: function(event){
     event.preventDefault();
-    console.log('create transaction.');
+    // console.log('create transaction.');
+
+    // if (App.checkNull() == false) {
+    //   return;
+    // }
+
+    var dataJson = {};
+
+    $("input[type$='text']").each(function(n){
+      var _jsonKey = $(this).attr('name');
+      var _jsonVal = $(this).val();
+
+      dataJson[_jsonKey] = _jsonVal;
+    });
+    // var _fromaddress = $("input[name='from_address']").val();
+
+    console.log(dataJson);
+
+    // var content = "这是直接使用HTML5进行导出的";
+    // var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
+    // saveAs(blob, "../json/TransacInfo.json");//saveAs(blob,filename)
+
+    // $.ajax({
+    //   type: 'POST',
+    //   url: '../json/TransacInfo.json',
+    //   data: dataJson,
+    //   success:function(data){
+    //     console.log(data);
+    //   },
+    //   error:function(err){
+    //     console.log(err);
+    //   }
+    // });
 
     var transactionInstance;
     
@@ -276,6 +308,27 @@ App = {
         console.log(err.message);
     });
   },
+  checkNull: function ()
+  {
+     var num=0;
+     var str="";
+     $("input[type$='text']").each(function(n){
+          if($(this).val()=="")
+          {
+               num++;
+               str+="?"+$(this).attr("msg")+"不能为空！\r\n";
+          }
+     });
+     if(num>0)
+     {
+          alert(str);
+          return false;
+     }
+     else
+     {
+          return true;
+     }
+  }
 
 };
 
